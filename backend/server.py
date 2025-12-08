@@ -110,19 +110,19 @@ def predict():
             'Turbidity': float(data['turbidity']),
         }
 
-        # --- Add engineered features ---
+        # Add engineered features
         sample = compute_derived_features(sample)
 
-        # --- Convert to DataFrame in correct order ---
+        # Convert to DataFrame in correct order
         df = pd.DataFrame([sample], columns=MODEL_FEATURE_ORDER)
 
-        # --- Scale input data ---
+        # Scale input data
         scaled = scaler.transform(df.astype(float))
 
-        # --- Predict probabilities ---
+        # Predict probabilities
         proba = model.predict_proba(scaled)[0][1]  # Probability of Class 1
 
-        # --- Apply safety threshold ---
+        # Apply safety threshold
         prediction = 1 if proba >= SAFETY_THRESHOLD else 0
 
         return jsonify({

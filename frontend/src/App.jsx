@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import Potability_Form from './components/Potability_Form'
-import Result from './components/Result'
+import Potability_Form from './components/Potability_Form.jsx'
+import Results from './components/Result.jsx'
 
 function App() {
   const [result, setResult] = useState(null)
@@ -66,7 +66,7 @@ function App() {
 
         {result && (
           <div className="result-section">
-            <Result result={result} />
+            <Results result={result} />
           </div>
         )}
       </main>
