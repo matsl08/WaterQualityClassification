@@ -1,0 +1,270 @@
+
+.homepage-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;         /* Changed from fixed 1200px to 100% for responsiveness */
+  max-width: 1200px;   /* Added max-width to prevent excessive width */
+  min-width: 320px;    /* Reduced min-width for mobile */
+  height: calc(90vh - 100px);  /* Changed from fixed 750px to fit screen height minus margins */
+  margin: 20px auto;   /* Reduced top/bottom margin to fit better */
+  padding: 20px;       /* Reduced padding */
+  background: #f0f4f8;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+/* Water animation layer */
+.water-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.wave {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: rgba(0, 162, 255, 0.2);
+  border-radius: 43%;
+  animation: waveMove 6s linear infinite;
+  bottom: -50%;
+}
+
+.wave:nth-child(2) {
+  background: rgba(0, 162, 255, 0.3);
+  animation: waveMove 8s linear infinite reverse;
+}
+
+@keyframes waveMove {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-25%) translateY(10%); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+
+/* Content overlay - left and right grids */
+.homepage-content {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  z-index: 1; /* above water */
+  gap: 1rem;  /* Reduced gap */
+  height: 100%;
+}
+
+/* Left Grid - Parameters */
+.grid-left {
+  flex: 1 1 45%;
+  min-width: 280px;  /* Reduced min-width */
+  background: #ffffff; /* solid cards */
+  color: #333;
+  border-radius: 16px;
+  padding: 1rem;  /* Reduced padding */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  overflow-y: auto;  /* Allow scrolling within grid if needed */
+}
+
+.grid-left h2 {
+  font-size: 1.5rem;  /* Reduced font size */
+  margin-bottom: 0.5rem;
+  font-weight: 850;
+  color: #0066cc;
+  text-align: center;
+}
+
+.parameters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(60px, auto);  /* Reduced row height */
+  gap: 0.5rem;  /* Reduced gap */
+}
+
+.parameter-card {
+  background: #f5f5f5;
+  color: #000000;
+  border-radius: 12px;
+  padding: 0.5rem 0.8rem;  /* Reduced padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.parameter-card h3 {
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;  /* Reduced font size */
+  font-weight: 600;
+}
+
+.parameter-card p {
+  font-size: 0.8rem;  /* Reduced font size */
+  opacity: 0.9;
+}
+
+/* ...existing code... */
+
+/* Add these styles for the homepage images */
+.homepage-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.homepage-images img {
+  width: 100px;  /* Adjust size as needed */
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.homepage-images p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  margin: 0;
+}
+
+/* Update .grid-left and .grid-right to include images */
+.grid-left {
+  flex: 1 1 45%;
+  min-width: 280px;
+  background: #ffffff;
+  color: #333;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.grid-left .images-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.grid-right {
+  flex: 1 1 45%;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 50px;
+  align-items: center;
+}
+
+.grid-right .images-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* ...existing code... */
+
+.grid-right h2 {
+  font-size: 1.5rem;  /* Reduced font size */
+  font-weight: 800;
+  color: #1c65ee;
+}
+
+.grid-right p {
+  font-size: 0.9rem;  /* Reduced font size */
+  line-height: 1.4;  /* Adjusted line height */
+  color: #000000;
+}
+
+.start-btn {
+  margin-top: 0.5rem;  /* Reduced margin */
+  padding: 0.8rem 1.5rem;  /* Reduced padding */
+  background: linear-gradient(135deg, #00bfff, #0066cc);
+  color: #fff;
+  font-size: 1rem;  /* Reduced font size */
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.start-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 102, 204, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .homepage-container {
+    height: calc(100vh - 40px);  /* Adjust for mobile */
+    margin: 10px auto;
+    padding: 10px;
+  }
+
+  .homepage-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .grid-left, .grid-right {
+    flex: 1 1 100%;
+  }
+
+  .parameters-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .parameter-card {
+    padding: 0.5rem 0.7rem;
+  }
+
+  .grid-right {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .homepage-container {
+    padding: 5px;
+  }
+
+  .grid-left, .grid-right {
+    padding: 0.5rem;
+  }
+
+  .grid-left h2, .grid-right h2 {
+    font-size: 1.2rem;
+  }
+
+  .parameter-card h3 {
+    font-size: 0.8rem;
+  }
+
+  .parameter-card p {
+    font-size: 0.75rem;
+  }
+
+  .grid-right p {
+    font-size: 0.85rem;
+  }
+
+  .start-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}

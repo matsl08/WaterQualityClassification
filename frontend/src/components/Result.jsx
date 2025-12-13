@@ -1,11 +1,12 @@
 import '../styles/Result.css'
+import { useState, useEffect } from 'react';
 
-function ResultsDisplay({ result }) {
-  const isPotable = result.prediction === 1 || result.prediction === true
-  // Accept either `parameters` (new) or `input` (older backend)
+function ResultsDisplay({ result, onClear }) {
+  const [exit, setExit] = useState(false);
+
+  const isPotable = result.prediction === 1 || result.prediction === true;
   const parameters = result.parameters || result.input || {};
 
-  // If backend didn't provide an `analysis` object, compute minimal derived features for display
   const computeClientDerived = (p) => {
     try {
       const Chloramines = parseFloat(p.Chloramines ?? p.chloramines ?? 0) || 0;
@@ -27,8 +28,21 @@ function ResultsDisplay({ result }) {
 
   const clientDerived = computeClientDerived(parameters);
 
+  // CLICKING "GO BACK"
+  const handleExit = () => {
+    setExit(true);
+
+    setTimeout(() => {
+      onClear();  // returns to the form
+    }, 350); // matches animation speed
+  };
+
   return (
-    <div className={`results-display ${isPotable ? 'potable' : 'not-potable'}`}>
+    <div
+      className={`results-display ${isPotable ? 'potable' : 'not-potable'} ${
+        exit ? 'exit' : 'enter'
+      }`}
+    >
       <div className="results-header">
         <h2>Water Quality Analysis Results</h2>
         <div className="result-status">
@@ -48,24 +62,16 @@ function ResultsDisplay({ result }) {
 
       <div className="results-details">
         <h3>Analysis Details</h3>
-        <div className="details-grid">
-          {Object.keys(parameters).length === 0 && (
-            <div className="detail-item">
-              <span className="detail-label">No input parameters</span>
-              <span className="detail-value">No data sent from server</span>
-            </div>
-          )}
-
-          {Object.entries(parameters).map(([key, value]) => (
-            <div key={key} className="detail-item">
+        <div className="details-grid stagger">
+          {Object.entries(parameters).map(([key, value], idx) => (
+            <div key={key} className="detail-item" style={{ ['--i']: idx }}>
               <span className="detail-label">{key}</span>
               <span className="detail-value">
-                {typeof value === 'number' ? value.toFixed(2) : (Number(value) || value) }
+                {typeof value === 'number' ? value.toFixed(2) : Number(value) || value}
               </span>
             </div>
           ))}
 
-          {/* show client-side derived features when server analysis missing */}
           {!result.analysis && clientDerived && (
             <>
               <div className="detail-item">
@@ -89,14 +95,9 @@ function ResultsDisplay({ result }) {
         <div className="confidence-section">
           <h3>Prediction Confidence</h3>
           <div className="confidence-bar">
-            <div
-              className="confidence-fill"
-              style={{ width: `${result.confidence * 100}%` }}
-            />
+            <div className="confidence-fill" style={{ width: `${result.confidence * 100}%` }} />
           </div>
-          <p className="confidence-text">
-            {(result.confidence * 100).toFixed(1)}% confidence
-          </p>
+          <p className="confidence-text">{(result.confidence * 100).toFixed(1)}% confidence</p>
         </div>
       )}
 
@@ -106,8 +107,13 @@ function ResultsDisplay({ result }) {
           <p>{result.recommendation}</p>
         </div>
       )}
+
+      {/* GO BACK BUTTON */}
+       <div>
+        <button className="btn-primary" onClick={handleExit}>Predict Again</button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default ResultsDisplay
+export default ResultsDisplay;

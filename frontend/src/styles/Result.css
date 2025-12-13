@@ -4,6 +4,7 @@
   padding: 2.5rem;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35), 0 0 60px rgba(0, 102, 204, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   border-left: 6px solid;
+
   animation: fadeIn 0.6s ease-in;
   border: 2px solid rgba(0, 191, 255, 0.2);
   position: relative;
@@ -130,6 +131,21 @@
   justify-content: space-between;
   align-items: center;
   transition: all 0.3s ease;
+
+/* Staggered reveal for details */
+.stagger > .detail-item {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i) * 70ms);
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
@@ -270,4 +286,38 @@
   .confidence-section {
     padding: 1.3rem;
   }
+
+  /* Slide Animations */
+.results-display.enter {
+  animation: slideIn 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.results-display.exit {
+  animation: slideOut 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Go Back button */
+.result-back {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-back {
+  background: #46268f;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-back:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
 }

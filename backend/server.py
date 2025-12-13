@@ -63,13 +63,13 @@ MODEL_FEATURE_ORDER = [
 ]
 
 def validate_input(data):
-    """Ensure all required base features are present."""
+  #  Ensure all required base features are present.
     missing = [f for f in BASE_FEATURES if f not in data]
     if missing:
         raise ValueError(f"Missing fields: {missing}")
 
 def compute_derived_features(d):
-    """Compute the engineered features used during training."""
+   # Compute the engineered features used during training
     d['Total_Contaminants'] = (
         d['Chloramines'] + d['Sulfate'] + d['Trihalomethanes']
     )

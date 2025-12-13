@@ -15,30 +15,121 @@ body {
 .app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
+
+/* ...existing code... */
+
+/* New section for images outside the form */
+.images-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin: 0.5rem auto;
+  max-width: 1200px;
+  width: 100%;
+  gap: .5rem;
+}
+
+.images img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+}
+
+.images-section img {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.images-section img:hover {
+  transform: scale(1.1);
+}
+
+.images-section p {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  margin: 0;
+  max-width: 100px;
+  word-wrap: break-word;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .images-section img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .images-section img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* ...existing code... */
+
+/* debug badge */
+.debug-badge {
+  position: fixed;
+  right: 12px;
+  top: 12px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  z-index: 9999;
+}
+
+/* ...existing code... */
 
 /* Header */
 .header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 3rem 2rem;
+  padding: 1rem 0.5rem;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  position: relative;  /* For absolute positioning of image */
+}
+
+.header img {
+  position: absolute;
+  left: 1rem;  /* Position image on the left side */
+  top: 50%;
+  transform: translateY(-50%);  /* Center vertically */
+  height: 40px;  /* Fit size in header */
+  width: auto;
+  object-fit: contain;
 }
 
 .header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  margin: 0;
   font-weight: 700;
 }
 
 .header p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   opacity: 0.9;
   font-weight: 300;
+  margin: 0;
 }
+
+
 
 /* Main Container */
 .container {
@@ -46,7 +137,7 @@ body {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 /* Form Section */
@@ -75,6 +166,36 @@ body {
   animation: slideUp 0.3s ease-out;
 }
 
+
+
+.view {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.form-view {
+  animation: slideIn 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.results-view {
+  animation: slideIn 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Advanced enter/exit animations */
+.results-view.enter {
+  animation: slideIn 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+
+.results-view.exit {
+  animation: slideOut 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.form-view.enter {
+  animation: slideInLeft 0.45s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -86,13 +207,46 @@ body {
   }
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+}
+
 /* Footer */
 .footer {
   background-color: rgba(0, 0, 0, 0.1);
   color: white;
   text-align: center;
-  padding: 1.5rem;
-  margin-top: 2rem;
+  padding: 1rem;
+  margin-top: 0.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -109,9 +263,11 @@ body {
 
   .header p {
     font-size: 1rem;
+
   }
 
   .container {
-    padding: 1rem;
+    padding: 0.5rem;
   }
+  
 }
